@@ -1,0 +1,117 @@
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import AccountContext from "@/contexts/account/AccountContext";
+import MemberContext from "@/contexts/members/MemberContext";
+import SocketContext from "@/contexts/socket/SocketContext";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage, useSessionStorage } from "react-use";
+
+export function Modal({ handleclick, modalState, userName }) {
+  const navigate = useNavigate();
+
+  // Account context: managing account details
+  const account = useContext(AccountContext);
+
+  //* Member context: managing chat member details
+  const membersContext = useContext(MemberContext);
+
+  // connect socket from client side
+  const getSocketContext = useContext(SocketContext);
+
+  function handleConfirm() {
+    getSocketContext.connectSocket(); // connecting client socket with server.
+    const userData = {
+      userName: userName,
+    };
+
+    // * Fetch request is used for combining userName (from client) with socketId and other stuff that comes from server response.
+    fetch("http://localhost:3000/socketconnect", {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((payload) => {
+        // console.log(payload);
+        // console.warn(getSocketContext.getMessage);
+        getSocketContext.setMessage();
+        account.setAccount(payload);
+        membersContext.setMembers([payload]);
+      });
+  }
+
+  useEffect(() => {
+    // console.error(account.myAccount);
+    if (
+      getSocketContext.getSocket &&
+      account.myAccount != null &&
+      modalState == true
+    ) {
+      const systemMessage = account.myAccount;
+      const bucket = {
+        isMessageBadge: true,
+        message: "joined chat room.",
+      };
+      systemMessage.bucket = bucket;
+      // console.log(getSocketContext);
+      getSocketContext.getSocket.emit("system_message", systemMessage);
+      navigate("/chat");
+    }
+  }, [getSocketContext.getSocket, account.myAccount]);
+
+  return (
+    <AlertDialog open={modalState} defaultOpen={false}>
+      <Button handleClick={handleclick}>Connect</Button>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Welcome to chat-room.</AlertDialogTitle>
+          <div className="text-slate-600">
+            <ul className="pl-3 mt-4 sm:mt-3 text-sm">
+              <li className="my-1">
+                🤵 Your identity will be <b>visible to everyone</b> during the
+                chat.
+              </li>
+              <li className="my-1">
+                🌐 In the chat-room,{" "}
+                <b>people from all over the world may join</b>.
+              </li>
+              <li className="my-1">
+                📝 Keep your messages short, with a <b>maximum of 50 words</b>.
+              </li>
+              <li className="my-1">
+                🤝 Be respectful, and{" "}
+                <b>avoid messages that could harm or hurt</b> others.
+              </li>
+              <li className="my-1">
+                🕶 Once you enter in chat-room, You{" "}
+                <b>can't see existing messages</b>.
+              </li>
+              <li className="my-1">
+                ↩ Once you leave the chat-room, You{" "}
+                <b>missed all the messages.</b>.
+              </li>
+            </ul>
+            <p className="mt-3 pl-3 text-sm">🙂 Enjoy the chat...</p>
+          </div>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <Button variant="outline">
+            <a href="/">Cancel</a>
+          </Button>
+          <Button handleClick={handleConfirm}>Confirm</Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}

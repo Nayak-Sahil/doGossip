@@ -1,0 +1,26 @@
+.frame-anim{
+    animation-name: frame-change;
+    animation-duration: 25s;
+    animation-timing-function: ease-in-out;
+    background-size: cover;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes frame-change {
+    0%, 20% {
+        background-image: url("../../assets/chat-frame-1.png");
+    }
+    25%, 45% {
+        background-image: url("../../assets/chat-frame-2.png");
+    }
+    50%, 70% {
+        background-image: url("../../assets/chat-frame-3.png");
+    }
+    75%, 95% {
+        background-image: url("../../assets/chat-frame-4.png");
+    }
+    100% {
+        background-image: url("../../assets/chat-frame-5.png");
+    }
+}
