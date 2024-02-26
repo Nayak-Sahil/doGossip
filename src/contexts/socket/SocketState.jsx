@@ -8,7 +8,7 @@ const SocketState = (props) => {
   const [getMessage, setMessage] = useState("");
   function connectSocket() {
     // ? When front is not served from the same domain as your server, you have to pass the URL of your server in io().
-    const socket = io("http://localhost:3000"); // * establishing socket connection when user confirm.
+    const socket = io("https://do-gossip.vercel.app/"); // * establishing socket connection when user confirm.
     setSocket(socket);
   }
 

@@ -77,7 +77,7 @@ export function Modal({ handleclick, modalState, userName }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Welcome to chat-room.</AlertDialogTitle>
           <div className="text-slate-600">
-            <ul className="pl-3 mt-4 sm:mt-3 text-sm">
+            <ul className="sm:pl-3 mt-4 sm:mt-3 text-sm">
               <li className="my-1">
                 🤵 Your identity will be <b>visible to everyone</b> during the
                 chat.
@@ -102,14 +102,14 @@ export function Modal({ handleclick, modalState, userName }) {
                 <b>missed all the messages.</b>.
               </li>
             </ul>
-            <p className="mt-3 pl-3 text-sm">🙂 Enjoy the chat...</p>
+            <p className="mt-3 sm:pl-3 text-sm">🙂 Enjoy the chat...</p>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button variant="outline">
             <a href="/">Cancel</a>
           </Button>
-          <Button handleClick={handleConfirm}>Confirm</Button>
+          <Button className="mb-2" handleClick={handleConfirm}>Confirm</Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

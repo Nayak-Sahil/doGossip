@@ -7,7 +7,7 @@ import Chat from "./components/custom/Chat";
 
 function App() {
   return (
-    <div className="w-screen h-screen bg-bg-home bg-opacity-35">
+    <div className="relative w-screen h-screen bg-bg-home bg-opacity-35">
       <Nav />
         <Router>
           <Routes>

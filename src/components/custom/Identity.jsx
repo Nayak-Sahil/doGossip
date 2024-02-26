@@ -78,7 +78,7 @@ export function Identity() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button handleclick={handleCancel} variant="outline">
+        <Button handleClick={handleCancel} variant="outline">
           Cancel
         </Button>
         {/* <Button handleclick={handleSubmit}>Connect</Button> */}

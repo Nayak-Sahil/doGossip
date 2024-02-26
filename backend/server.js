@@ -10,7 +10,7 @@ app.use(express.json()); // ? this middleware is used for accepting by default j
 // ? created httpserver using http (core-modules) to pass in socket-server.
 const httpServer = http.createServer(app);
 
-const allowedOrigin = process.env.NODE_ENV === 'production' ? 'https://do-gossip.vercel.app/' : 'http://localhost:5173';
+const allowedOrigin = (process.env.NODE_ENV === "production" )? 'https://do-gossip.vercel.app/' : 'http://localhost:5173';
 
 const io = new Server(httpServer, {
     cors: {
