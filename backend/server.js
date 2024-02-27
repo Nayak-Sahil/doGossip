@@ -68,5 +68,5 @@ app.get("/test", (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 httpServer.listen(PORT, () => console.log(`SERVER RUNNING ON ${PORT}`));
