@@ -35,6 +35,7 @@ export function Modal({ handleclick, modalState, userName }) {
     const hitURL = (import.meta.env.PROD) ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_BACK_URL + "/socketconnect"
     fetch(hitURL, {
       method: "POST",
+      mode: "cors",
       body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json",
