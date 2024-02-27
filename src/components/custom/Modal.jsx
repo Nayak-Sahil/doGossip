@@ -32,7 +32,8 @@ export function Modal({ handleclick, modalState, userName }) {
     };
 
     // * Fetch request is used for combining userName (from client) with socketId and other stuff that comes from server response.
-    fetch("http://localhost:3000/socketconnect", {
+    const hitURL = (import.meta.env.PROD) ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_BACK_URL + "/socketconnect"
+    fetch(hitURL, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

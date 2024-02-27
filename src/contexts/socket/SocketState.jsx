@@ -8,7 +8,7 @@ const SocketState = (props) => {
   const [getMessage, setMessage] = useState("");
   function connectSocket() {
     // ? When front is not served from the same domain as your server, you have to pass the URL of your server in io().
-    const socket = io("wss://do-gossip.vercel.app/"); // * establishing socket connection when user confirm.
+    const socket = io((import.meta.env.PROD) ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_BACK_URL); // * establishing socket connection when user confirm.
     setSocket(socket);
   }
 

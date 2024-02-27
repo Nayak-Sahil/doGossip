@@ -60,7 +60,8 @@ export function ChatCount() {
                     </div>
                     <div className="p-4 w-2/5 text-center text-sm">
                       <p className="whitespace-no-wrap text-gray-600">
-                        {member.connectedAt.substring(member.connectedAt.indexOf(new Date().getFullYear() + 4), member.connectedAt.indexOf("G"))}
+                        {member.connectedAt}
+                        {/* {member.connectedAt.substring(member.connectedAt.indexOf(new Date().getFullYear() + 4), member.connectedAt.indexOf("G"))} */}
                       </p>
                     </div>
                     <div className="p-4 w-1/3 text-right text-sm">

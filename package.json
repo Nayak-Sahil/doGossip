@@ -20,6 +20,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.5",
     "lucide-react": "^0.335.0",
     "nanoid": "^5.0.6",
     "react": "^18.2.0",
@@ -41,6 +42,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.35",
+    "react-error-overlay": "^6.0.9",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
   }

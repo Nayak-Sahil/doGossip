@@ -31,18 +31,33 @@ export default function Chat() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(getSocketContext.getSocket == null || account.myAccount == null || !account.myAccount){
+    if (
+      getSocketContext.getSocket == null ||
+      account.myAccount == null ||
+      !account.myAccount
+    ) {
       membersContext.setMembers([]);
       navigate("/");
     }
   }, [getSocketContext.getSocket, account.myAccount]);
 
   function handleBack() {
-    account.resetSession();
-    setReceivedMessage([]);
-    getSocketContext.setMessage("");
-    membersContext.setMembers([]);
-    navigate("/");
+    const isConfirm = confirm("Are you sure you want to leave room?");
+    if (isConfirm) {
+      const systemMessage = account.myAccount;
+      const bucket = {
+        isMessageBadge: true,
+        message: "leaved chat room.",
+      };
+      systemMessage.bucket = bucket;
+      getSocketContext.getSocket.emit("system_message", systemMessage);
+      getSocketContext.getSocket.disconnect();
+      account.resetSession();
+      setReceivedMessage([]);
+      getSocketContext.setMessage("");
+      membersContext.setMembers([]);
+      navigate("/");
+    }
   }
 
   function handleSendMessage() {
@@ -83,24 +98,30 @@ export default function Chat() {
 
       let isMember = false;
       let idx = -1;
-      if(membersContext.getMembers.length != 0){
-        Array.from(membersContext.getMembers).forEach((member, index)=>{
-          if(member.socketId == finalMessage.socketId){
+      if (membersContext.getMembers.length != 0) {
+        Array.from(membersContext.getMembers).forEach((member, index) => {
+          if (member.socketId == finalMessage.socketId) {
             isMember = true;
             idx = index;
           }
-        })
+        });
       }
 
-      if(idx != -1){
+      if (idx != -1) {
         const updatedMember = membersContext.getMembers;
         updatedMember.splice(idx, 1);
         updatedMember.push(finalMessage);
+        if (finalMessage.bucket.message == "leaved chat room.") {
+          updatedMember.splice(idx, 1);
+        }
       }
 
-      if(!isMember){
+      if (!isMember) {
         let newChatMember = finalMessage;
-        membersContext.setMembers([...membersContext.getMembers, newChatMember]);
+        membersContext.setMembers([
+          ...membersContext.getMembers,
+          newChatMember,
+        ]);
       }
 
       if (getSocketContext.getMessage.socketId == account.myAccount.socketId) {
@@ -137,7 +158,10 @@ export default function Chat() {
             <FontAwesomeIcon className="text-gray-700" icon={faCircleLeft} />
           </button>
           <p className="text-slate-900 md:text-sm text-center text-xs">
-            <span className="text-gray-600 text-[12px]">Currently, {membersContext.getMembers.length} members online.</span><br></br>
+            <span className="text-gray-600 text-[12px]">
+              Currently, {membersContext.getMembers.length} members online.
+            </span>
+            <br></br>
             <ChatCount />
           </p>
           <div>
