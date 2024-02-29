@@ -70,3 +70,5 @@ app.get("/test", (req, res) => {
 
 const PORT = 3000;
 httpServer.listen(PORT, () => console.log(`SERVER RUNNING ON ${PORT}`));
+
+module.exports = app;
