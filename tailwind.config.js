@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'bg-home': "url('/public/dot-grid.webp')",
+        'bg-home': "url('/dot-grid.webp')",
       },
       colors: {
         border: "hsl(var(--border))",
