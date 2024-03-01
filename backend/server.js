@@ -13,7 +13,7 @@ const httpServer = http.createServer(app);
 
 const allowedOrigin = (process.env.NODE_ENV === "production" ) ? process.env.NODE_ENV_PRODUCTION_URL : process.env.NODE_ENV_LOCAL_FRONT_URL;
 // const allowedOrigin = "http://localhost:5173";
-
+console.log(allowedOrigin);
 const io = new Server(httpServer, {
     cors: {
         origin: allowedOrigin,
