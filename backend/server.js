@@ -64,7 +64,7 @@ app.post("/socketconnect", (req, res) => {
 })
 
 app.get("/test", (req, res) => {
-    res.json(process.env);
+    res.json({"text": "perfect"});
 })
 
 
