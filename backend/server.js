@@ -16,7 +16,7 @@ const allowedOrigin = (process.env.NODE_ENV === "production" ) ? process.env.NOD
 console.log(allowedOrigin);
 const io = new Server(httpServer, {
     cors: {
-        origin: allowedOrigin,
+        origin: "*",
         methods: ["GET", "POST"],
     }
 });
