@@ -5,6 +5,9 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const app = express();
 
+app.use(cors()); // ? this middleware is used for allowing CORS from all.
+app.use(express.json()); // ? this middleware is used for accepting by default json data when user sent post request containing with json data.
+
 // ? created httpserver using http (core-modules) to pass in socket-server.
 const httpServer = http.createServer(app);
 
@@ -14,12 +17,9 @@ console.log(allowedOrigin);
 const io = new Server(httpServer, {
     cors: {
         origin: "*",
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "UPGRADE"],
     }
 });
-
-app.use(cors()); // ? this middleware is used for allowing CORS from all.
-app.use(express.json()); // ? this middleware is used for accepting by default json data when user sent post request containing with json data.
 
 const connectionDetails = { socketId: 0, connectedAt: null };
 io.on("connection", (socket) => {
