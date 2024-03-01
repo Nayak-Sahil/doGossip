@@ -67,6 +67,11 @@ app.get("/test", (req, res) => {
     res.json({"text": "perfect"});
 })
 
+app.get("/", (req, res) => {
+    console.log(req.body);
+    res.send("Hey there!");
+})
+
 
 const PORT = process.env.PORT || 3000;
 httpServer.listen(PORT, () => console.log(`SERVER RUNNING ON ${PORT}`));
