@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "18.x",
-    "build": "npm i"
+    "node": "18.x"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "npm i"
   },
   "author": "Sahil Nayak",
   "license": "ISC",
