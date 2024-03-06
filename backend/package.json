@@ -7,7 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "build": "npm i"
   },
   "author": "Sahil Nayak",
