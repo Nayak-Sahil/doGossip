@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
-import MessageBadge from "./MessageBadge";
 
 const Nav = () => {
   return (

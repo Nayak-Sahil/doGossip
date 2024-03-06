@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "18.x"
+    "node": "18.x",
+    "build": "npm install"
   },
   "scripts": {
     "dev": "nodemon server.js"
