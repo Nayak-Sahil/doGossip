@@ -23,12 +23,27 @@ export default function Chat() {
   const getSocketContext = useContext(SocketContext);
 
   //* this state is for input value
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
 
   //* this state is for socket listener message
   const [receivedMessage, setReceivedMessage] = useState([]);
 
+  //* useRef for taking message input for keydown listener
+  const messageInpt = useRef();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (e)=>{
+      if (e.key === "Enter") {
+        handleSendMessage();
+      }
+    }
+
+    messageInpt.current.addEventListener("keydown", handleKeyDown);
+
+    return () => handleKeyDown && messageInpt.current.removeEventListener("keydown", handleKeyDown);
+  }, [message]);
 
   useEffect(() => {
     if (
@@ -62,6 +77,8 @@ export default function Chat() {
 
   function handleSendMessage() {
     //* add new pair for message with account details.
+    console.warn(message);
+    if (message == "") return; 
     const bucket = {
       isMessageBadge: false,
       message,
@@ -116,7 +133,10 @@ export default function Chat() {
         }
       }
 
-      if (!isMember) {
+      if (
+        !isMember &&
+        finalMessage.bucket.messagge != "Someone leaved chat room."
+      ) {
         let newChatMember = finalMessage;
         membersContext.setMembers([
           ...membersContext.getMembers,
@@ -210,6 +230,7 @@ export default function Chat() {
           <div className="w-[90%] md:mr-0 mr-2">
             <Input
               id="messageInpt"
+              ref={messageInpt}
               value={message}
               onChange={(e) => {
                 handleOnChange(e);
