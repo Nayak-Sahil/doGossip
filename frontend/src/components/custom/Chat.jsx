@@ -42,7 +42,7 @@ export default function Chat() {
 
     messageInpt.current.addEventListener("keydown", handleKeyDown);
 
-    return () => handleKeyDown && messageInpt.current.removeEventListener("keydown", handleKeyDown);
+    return () => messageInpt.current && messageInpt.current.removeEventListener("keydown", handleKeyDown);
   }, [message]);
 
   useEffect(() => {
