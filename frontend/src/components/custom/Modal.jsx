@@ -33,7 +33,7 @@ export function Modal({ handleclick, modalState, userName }) {
 
     // * Fetch request is used for combining userName (from client) with socketId and other stuff that comes from server response. 
     const hitURL = ((import.meta.env.PROD) ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_BACK_URL) + "socketconnect"
-    console.log(hitURL);
+    console.log(hitURL, " ", import.meta.env.PROD, " ", import.meta.env);
     fetch(hitURL, { 
       method: "POST",
       mode: "cors",

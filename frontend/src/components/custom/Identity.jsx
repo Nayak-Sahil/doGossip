@@ -51,7 +51,7 @@ export function Identity() {
   }
 
   return (
-    <Card className="m-auto translate-y-2/4 w-[350px] shadow relative">
+    <Card className="m-auto translate-y-2/4 w-[90%] sm:w-[350px] shadow relative">
       <FrameAnimation />
       <CardHeader>
         <CardTitle>Let's Chat</CardTitle>

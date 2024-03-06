@@ -44,11 +44,11 @@ export function ChatCount() {
               Total {membersData.getMembers.length} members actively joined in this chat.
             </DrawerDescription>
           </DrawerHeader>
-          <div className="w-full h-48 p-4 pt-1 pb-0 flex flex-col overflow-y-scroll">
+          <div className="w-full h-48 sm:p-4 p-1 pt-1 pb-0 flex flex-col overflow-y-scroll">
               {membersData.getMembers.map((member) => {
                 return (
                   <div className="w-full h-16 flex items-center justify-between">
-                    <div className="p-4 w-1/3 text-right text-sm">
+                    <div className="sm:p-4 px-2 w-1/3 text-right text-sm">
                       <div className="flex items-center">
                         <p className="whitespace-no-wrap font-medium text-center">
                           {member.userName}<br></br>
@@ -58,13 +58,13 @@ export function ChatCount() {
                         </p>
                       </div>
                     </div>
-                    <div className="p-4 w-2/5 text-center text-sm">
+                    <div className="sm:p-4 px-2 w-2/5 text-center sm:text-sm text-xs">
                       <p className="whitespace-no-wrap text-gray-600">
-                        {member.connectedAt}
-                        {/* {member.connectedAt.substring(member.connectedAt.indexOf(new Date().getFullYear() + 4), member.connectedAt.indexOf("G"))} */}
+                        {/* {member.connectedAt} */}
+                        {member.connectedAt.substring(member.connectedAt.indexOf(new Date().getFullYear() + 4), member.connectedAt.indexOf("G"))}
                       </p>
                     </div>
-                    <div className="p-4 w-1/3 text-right text-sm">
+                    <div className="sm:p-4 px-2 w-1/3 text-right text-sm">
                       <span className="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">
                         Online
                       </span>
