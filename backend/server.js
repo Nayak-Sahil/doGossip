@@ -42,7 +42,8 @@ io.on("connection", (socket) => {
             socketId: socket.id,
             bucket:{
                 isMessageBadge: true,
-                message: "Someone leaved chat room."
+                message: "Someone has either refreshed or left the browser.",
+                isLeaving: true
             }
         }
         io.emit("user_message", leavedUser);

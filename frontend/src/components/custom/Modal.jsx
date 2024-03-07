@@ -30,9 +30,9 @@ export function Modal({ handleclick, modalState, userName }) {
   function handleConfirm() {
     modalRef.current.innerHTML = `<lord-icon
         src="https://cdn.lordicon.com/lzgqzxrq.json"
-        trigger="hover"
+        trigger="loop"
         colors="primary:#ffffff,secondary:#ffffff,tertiary:#04091e,quaternary:#16a9c7"
-        style="width:250px;height:250px">
+        style="width:100px;height:100px;position:relative;top:50%;left:50%;transform:translate(-50%,-50%)">
     </lord-icon>`
     getSocketContext.connectSocket(); // connecting client socket with server.
     const userData = {
@@ -64,7 +64,7 @@ export function Modal({ handleclick, modalState, userName }) {
 
   useEffect(() => {
     if (
-      getSocketContext.getSocket && getSocketContext.getSocket.connected &&
+      getSocketContext.getSocket  &&
       account.myAccount != null &&
       modalState == true
     ) {
@@ -119,7 +119,7 @@ export function Modal({ handleclick, modalState, userName }) {
           <Button variant="outline">
             <a href="/">Cancel</a>
           </Button>
-          <Button className="mb-2" handleClick={handleConfirm}>Confirm</Button>
+          <Button className={`mb-2 ${account.myAccount != null ? "hidden" : "visible"}`} handleClick={handleConfirm}>Confirm</Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

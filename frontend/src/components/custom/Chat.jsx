@@ -34,15 +34,17 @@ export default function Chat() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleKeyDown = (e)=>{
+    const handleKeyDown = (e) => {
       if (e.key === "Enter") {
         handleSendMessage();
       }
-    }
+    };
 
     messageInpt.current.addEventListener("keydown", handleKeyDown);
 
-    return () => messageInpt.current && messageInpt.current.removeEventListener("keydown", handleKeyDown);
+    return () =>
+      messageInpt.current &&
+      messageInpt.current.removeEventListener("keydown", handleKeyDown);
   }, [message]);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export default function Chat() {
       const bucket = {
         isMessageBadge: true,
         message: "leaved chat room.",
+        isLeaving: true,
       };
       systemMessage.bucket = bucket;
       getSocketContext.getSocket.emit("system_message", systemMessage);
@@ -78,7 +81,7 @@ export default function Chat() {
   function handleSendMessage() {
     //* add new pair for message with account details.
     console.warn(message);
-    if (message == "") return; 
+    if (message == "") return;
     const bucket = {
       isMessageBadge: false,
       message,
@@ -117,6 +120,7 @@ export default function Chat() {
       let idx = -1;
       if (membersContext.getMembers.length != 0) {
         Array.from(membersContext.getMembers).forEach((member, index) => {
+          console.log(member, finalMessage)
           if (member.socketId == finalMessage.socketId) {
             isMember = true;
             idx = index;
@@ -126,17 +130,16 @@ export default function Chat() {
 
       if (idx != -1) {
         const updatedMember = membersContext.getMembers;
-        updatedMember.splice(idx, 1);
-        updatedMember.push(finalMessage);
-        if (finalMessage.bucket.message == "leaved chat room.") {
+        console.log(idx, updatedMember);
+        if (finalMessage.bucket.isLeaving) {
           updatedMember.splice(idx, 1);
+          membersContext.setMembers(updatedMember);
         }
+        console.log(updatedMember);
       }
 
-      if (
-        !isMember &&
-        finalMessage.bucket.messagge != "Someone leaved chat room."
-      ) {
+      if (!isMember && !finalMessage.bucket.isLeaving) {
+        console.log("is process to adding", finalMessage);
         let newChatMember = finalMessage;
         membersContext.setMembers([
           ...membersContext.getMembers,
@@ -194,7 +197,7 @@ export default function Chat() {
         >
           {receivedMessage.map((chat, index) => {
             return chat.bucket.isMessageBadge ? (
-              chat.userName == account.myAccount.userName && chat.socketId == account.myAccount.socketId ? (
+              chat.userName == account.myAccount.userName ? (
                 <MessageBadge
                   key={index}
                   message={"You " + chat.bucket.message}
@@ -213,7 +216,11 @@ export default function Chat() {
               ) : (
                 <MessageBadge
                   key={index}
-                  message={chat.userName + " " + chat.bucket.message}
+                  message={
+                    (chat.userName ? chat.userName : "") +
+                    " " +
+                    chat.bucket.message
+                  }
                 />
               )
             ) : (
