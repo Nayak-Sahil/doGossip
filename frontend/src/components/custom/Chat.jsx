@@ -170,7 +170,7 @@ export default function Chat() {
   return (
     <section className="relative w-full top-3 h-[80%] flex flex-col items-center justify-between">
       <div
-        className="flex flex-col items-center justify-between z-[3] mx-auto w-[80vw] md:w-[40vw] h-full bg-white/30 bg-opacity-30 rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-xl"
+        className="flex flex-col items-center justify-between z-[3] mx-auto w-[92vw] md:w-[40vw] h-full bg-white/30 bg-opacity-30 rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] backdrop-blur-xl"
         style={{ backdropFilter: "blur(2px)" }}
       >
         <header className="w-full h-[12%] flex items-center justify-between border-b border-gray-200 p-4">
@@ -194,7 +194,7 @@ export default function Chat() {
         >
           {receivedMessage.map((chat, index) => {
             return chat.bucket.isMessageBadge ? (
-              chat.userName == account.myAccount.userName ? (
+              chat.userName == account.myAccount.userName && chat.socketId == account.myAccount.socketId ? (
                 <MessageBadge
                   key={index}
                   message={"You " + chat.bucket.message}

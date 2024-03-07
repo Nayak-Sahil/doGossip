@@ -55,9 +55,8 @@ export function Modal({ handleclick, modalState, userName }) {
   }
 
   useEffect(() => {
-    // console.error(account.myAccount);
     if (
-      getSocketContext.getSocket &&
+      getSocketContext.getSocket && getSocketContext.getSocket.connected &&
       account.myAccount != null &&
       modalState == true
     ) {

@@ -18,6 +18,9 @@ import AccountContext from "@/contexts/account/AccountContext";
 import { useNavigate } from "react-router-dom";
 
 export function Setting({handleEmitMessage}) {
+  //* Sheet open & close manualy
+  const [open, setOpen] = useState(false);
+
   //* Account context: managing account details
   const account = useContext(AccountContext);
 
@@ -38,6 +41,7 @@ export function Setting({handleEmitMessage}) {
       account.resetSession();
       account.setAccount(updatedAccount);
       handleEmitMessage();
+      setOpen(false);
       // console.warn("clicked", account.myAccount)
     }catch(err){
       console.error(err);
@@ -49,7 +53,7 @@ export function Setting({handleEmitMessage}) {
   }
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button className="text-gray-700">
           <FontAwesomeIcon className="text-lg" icon={faGears} />
@@ -57,14 +61,14 @@ export function Setting({handleEmitMessage}) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
+          <SheetTitle className="mt-4 text-left sm:mt-1">Edit profile</SheetTitle>
+          <SheetDescription className="text-left text-xs sm:text-sm">
             Make changes to your profile here. Click save when you're done.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+        <div className="justify-start py-4">
+          <div className="w-full flex flex-col sm:flex-row sm:items-center items-start justify-between gap-4">
+            <Label htmlFor="name" className="text-left">
               Name
             </Label>
             <Input
@@ -73,7 +77,6 @@ export function Setting({handleEmitMessage}) {
                 handleOnchange(e);
               }}
               value={userName}
-              className="col-span-3"
             />
           </div>
         </div>
