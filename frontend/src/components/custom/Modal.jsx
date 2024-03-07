@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import AccountContext from "@/contexts/account/AccountContext";
 import MemberContext from "@/contexts/members/MemberContext";
 import SocketContext from "@/contexts/socket/SocketContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage, useSessionStorage } from "react-use";
 
 export function Modal({ handleclick, modalState, userName }) {
   const navigate = useNavigate();
+
+  const modalRef = useRef();
 
   // Account context: managing account details
   const account = useContext(AccountContext);
@@ -26,6 +28,12 @@ export function Modal({ handleclick, modalState, userName }) {
   const getSocketContext = useContext(SocketContext);
 
   function handleConfirm() {
+    modalRef.current.innerHTML = `<lord-icon
+        src="https://cdn.lordicon.com/lzgqzxrq.json"
+        trigger="hover"
+        colors="primary:#ffffff,secondary:#ffffff,tertiary:#04091e,quaternary:#16a9c7"
+        style="width:250px;height:250px">
+    </lord-icon>`
     getSocketContext.connectSocket(); // connecting client socket with server.
     const userData = {
       userName: userName,
@@ -78,7 +86,7 @@ export function Modal({ handleclick, modalState, userName }) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Welcome to chat-room.</AlertDialogTitle>
-          <div className="text-slate-600">
+          <div ref={modalRef} className="text-slate-600">
             <ul className="sm:pl-3 mt-4 sm:mt-3 text-sm">
               <li className="my-1">
                 🤵 Your identity will be <b>visible to everyone</b> during the
