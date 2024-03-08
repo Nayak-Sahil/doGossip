@@ -30,7 +30,7 @@ export default function UserMessage({ messageType, message, user, time, key }) {
 
   return (
     <div key={key} className="flex flex-col mt-3 w-full h-max">
-      <div className={`py-3 px-5 ${msgStyle} w-max sm:max-w-[400px] max-w-[350px] h-max`}>
+      <div className={`py-3 px-5 ${msgStyle} w-max sm:max-w-[400px] max-w-[80vw] h-max`}>
         <p
           className={`break-normal break-all ${padding} font-medium text-slate-900 text-sm`}
         >
