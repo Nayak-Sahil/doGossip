@@ -120,7 +120,7 @@ export default function Chat() {
       let idx = -1;
       if (membersContext.getMembers.length != 0) {
         Array.from(membersContext.getMembers).forEach((member, index) => {
-          console.log(member, finalMessage)
+          // console.log(member, finalMessage)
           if (member.socketId == finalMessage.socketId) {
             isMember = true;
             idx = index;
@@ -130,16 +130,17 @@ export default function Chat() {
 
       if (idx != -1) {
         const updatedMember = membersContext.getMembers;
-        console.log(idx, updatedMember);
-        if (finalMessage.bucket.isLeaving) {
-          updatedMember.splice(idx, 1);
-          membersContext.setMembers(updatedMember);
+        // console.log(idx, updatedMember);
+        updatedMember.splice(idx, 1);
+        if (!finalMessage.bucket.isLeaving) {
+          updatedMember.push(finalMessage);
         }
-        console.log(updatedMember);
+        membersContext.setMembers(updatedMember);
+        // console.log(updatedMember);
       }
 
       if (!isMember && !finalMessage.bucket.isLeaving) {
-        console.log("is process to adding", finalMessage);
+        // console.log("is process to adding", finalMessage);
         let newChatMember = finalMessage;
         membersContext.setMembers([
           ...membersContext.getMembers,
@@ -197,7 +198,7 @@ export default function Chat() {
         >
           {receivedMessage.map((chat, index) => {
             return chat.bucket.isMessageBadge ? (
-              chat.userName == account.myAccount.userName ? (
+              chat.socketId == account.myAccount.socketId ? (
                 <MessageBadge
                   key={index}
                   message={"You " + chat.bucket.message}
